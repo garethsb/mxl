@@ -212,11 +212,14 @@ impl ElementImpl for MxlSink {
                                 .build(),
                         );
                     }
-                    caps.make_mut().append(
-                        gst::Caps::builder("meta/x-st-2038")
-                            .field("alignment", "frame")
-                            .build(),
-                    );
+                    // `meta/x-st-2038` without `alignment` in the pad template so caps can
+                    // intersect with peers that fix `alignment=frame` or `alignment=packet`
+                    // (or omit it; `init_state_with_data` then treats the stream as packet
+                    // alignment). Frame mode maps one buffer to one MXL grain; packet mode
+                    // accumulates ST 2038 into a grain and flushes on `GST_BUFFER_FLAG_MARKER`,
+                    // when the MXL grain index derived from PTS changes, or on EOS.
+                    caps.make_mut()
+                        .append(gst::Caps::builder("meta/x-st-2038").build());
                 }
 
                 let sink_pad_template = gst::PadTemplate::new(
@@ -361,6 +364,15 @@ impl BaseSinkImpl for MxlSink {
     }
 
     fn event(&self, event: gst::Event) -> bool {
+        if event.type_() == gst::EventType::Eos {
+            if let Ok(mut context) = self.context.lock() {
+                if let Some(state) = context.state.as_mut() {
+                    if state.data.is_some() {
+                        render_data::eos(state);
+                    }
+                }
+            }
+        }
         self.parent_event(event)
     }
 
