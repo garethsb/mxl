@@ -7,13 +7,10 @@ use crate::format;
 use crate::mxlsink::{
     self,
     render_audio::WriteGrainData,
-    state::{DataCommand, DataEngine, InitialTime},
+    state::{DataCommand, DataEngine, InitialTime, St2038Alignment, State},
 };
 
-use gstreamer::{
-    self as gst,
-    prelude::{ClockExt, ElementExt},
-};
+use gstreamer::{self as gst, prelude::*};
 use mxl::Rational;
 use tracing::trace;
 
@@ -56,10 +53,100 @@ pub(crate) fn data(
         .timestamp_to_index(pts, &grain_rate)
         .map_err(|_| gst::FlowError::Error)?;
     trace!("DATA mapped mxl_index from pts: {:#?}", mxl_index);
-    commit_buffer(buffer, data_state, mxl_index)?;
-    data_state.grain_index = data_state.grain_index.wrapping_add(1);
+
+    match data_state.st2038_alignment {
+        St2038Alignment::Frame => {
+            commit_buffer(buffer, data_state, mxl_index)?;
+            data_state.grain_index = data_state.grain_index.wrapping_add(1);
+        }
+        St2038Alignment::Packet => {
+            if let Some(pending_mxl_index) = data_state.pending_grain_mxl_index {
+                if pending_mxl_index != mxl_index {
+                    if let Some(builder) = data_state.pending_grain_builder.take() {
+                        let buf = builder
+                            .into_padded_grain()
+                            .map_err(|_| gst::FlowError::Error)?;
+                        commit_padded_grain(&data_state.tx, buf, pending_mxl_index)?;
+                        data_state.grain_index = data_state.grain_index.wrapping_add(1);
+                    }
+                    data_state.pending_grain_mxl_index = None;
+                }
+            }
+
+            if data_state.pending_grain_builder.is_none() {
+                data_state.pending_grain_builder = Some(
+                    format::data::MxlSmpte291GrainBuilder::new()
+                        .map_err(|_| gst::FlowError::Error)?,
+                );
+                data_state.pending_grain_mxl_index = Some(mxl_index);
+            }
+
+            let builder = data_state
+                .pending_grain_builder
+                .as_mut()
+                .ok_or(gst::FlowError::Error)?;
+            let map = buffer.map_readable().map_err(|_| gst::FlowError::Error)?;
+            builder
+                .append_st2038_packets(map.as_slice())
+                .map_err(|_| gst::FlowError::Error)?;
+
+            if buffer.flags().contains(gst::BufferFlags::MARKER) {
+                let pending_mxl_index = data_state
+                    .pending_grain_mxl_index
+                    .take()
+                    .ok_or(gst::FlowError::Error)?;
+                let builder = data_state
+                    .pending_grain_builder
+                    .take()
+                    .ok_or(gst::FlowError::Error)?;
+                let buf = builder
+                    .into_padded_grain()
+                    .map_err(|_| gst::FlowError::Error)?;
+                commit_padded_grain(&data_state.tx, buf, pending_mxl_index)?;
+                data_state.grain_index = data_state.grain_index.wrapping_add(1);
+            }
+        }
+    }
 
     Ok(gst::FlowSuccess::Ok)
+}
+
+/// EOS hook for the `meta/x-st-2038` data path. No-op if caps used `alignment=frame`.
+pub(crate) fn eos(state: &mut State) {
+    let Some(data) = state.data.as_mut() else {
+        return;
+    };
+    if data.st2038_alignment == St2038Alignment::Frame {
+        return;
+    }
+    let Some(pending_mxl_index) = data.pending_grain_mxl_index else {
+        return;
+    };
+    let Some(builder) = data.pending_grain_builder.take() else {
+        return;
+    };
+    let Ok(buf) = builder.into_padded_grain() else {
+        trace!("packet-mode EOS: into_padded_grain failed");
+        data.pending_grain_mxl_index = None;
+        return;
+    };
+    if commit_padded_grain(&data.tx, buf, pending_mxl_index).is_err() {
+        trace!("packet-mode EOS: commit failed");
+        return;
+    }
+    data.pending_grain_mxl_index = None;
+    data.grain_index = data.grain_index.wrapping_add(1);
+}
+
+fn commit_padded_grain(
+    tx: &crossbeam::channel::Sender<DataCommand>,
+    buf: Vec<u8>,
+    index: u64,
+) -> Result<(), gst::FlowError> {
+    let data = WriteGrainData { buf, index };
+    tx.send(DataCommand::Write { data })
+        .map_err(|_| gst::FlowError::Error)?;
+    Ok(())
 }
 
 fn commit_buffer(
@@ -70,12 +157,7 @@ fn commit_buffer(
     let map = buffer.map_readable().map_err(|_| gst::FlowError::Error)?;
     let buf = format::data::mxl_smpte291_grain_from_gst_st2038(map.as_slice())
         .map_err(|_| gst::FlowError::Error)?;
-    let data = WriteGrainData { buf, index };
-    data_state
-        .tx
-        .send(DataCommand::Write { data })
-        .map_err(|_| gst::FlowError::Error)?;
-    Ok(())
+    commit_padded_grain(&data_state.tx, buf, index)
 }
 
 pub fn await_data_buffer(

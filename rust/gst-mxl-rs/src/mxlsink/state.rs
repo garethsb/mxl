@@ -76,12 +76,30 @@ pub(crate) struct AudioState {
     pub sleep_flag: Arc<(Mutex<bool>, Condvar)>,
 }
 
+/// How incoming `meta/x-st-2038` buffers map to MXL `video/smpte291` grains.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum St2038Alignment {
+    /// One buffer is one complete logical frame, which maps directly to one MXL grain.
+    Frame,
+    /// One buffer is one or more ANC packets. A grain is committed when the buffer has
+    /// the `GST_BUFFER_FLAG_MARKER` flag set (for example, from the RTP Marker bit, `M`),
+    /// or the mapped MXL grain index changes (PTS moved to the next frame), or on EOS.
+    Packet,
+}
+
 pub(crate) struct DataState {
     pub tx: crossbeam::channel::Sender<DataCommand>,
     pub grain_index: u64,
     pub initial_time: Option<InitialTime>,
     pub latency: u64,
     pub sleep_flag: Arc<(Mutex<bool>, Condvar)>,
+    pub st2038_alignment: St2038Alignment,
+    /// Builder for the grain currently being accumulated in Packet alignment mode.
+    pub pending_grain_builder: Option<crate::format::data::MxlSmpte291GrainBuilder>,
+    /// MXL grain index for the grain being accumulated in Packet alignment mode.
+    /// When a new buffer maps to a different MXL index, the grain is committed
+    /// before the new buffer is appended.
+    pub pending_grain_mxl_index: Option<u64>,
 }
 
 pub enum VideoCommand {
@@ -353,6 +371,11 @@ pub(crate) fn init_state_with_data(
     structure: &StructureRef,
     flow_id: &str,
 ) -> Result<(), gst::LoggableError> {
+    let st2038_alignment = match structure.get::<&str>("alignment") {
+        Ok("frame") => St2038Alignment::Frame,
+        Ok("packet") | Ok("line") | Ok(_) => St2038Alignment::Packet,
+        Err(_) => St2038Alignment::Packet,
+    };
     let framerate = structure
         .get::<gst::Fraction>("framerate")
         .unwrap_or_else(|_| gst::Fraction::new(30000, 1001));
@@ -425,6 +448,9 @@ pub(crate) fn init_state_with_data(
         latency: 0,
         tx,
         sleep_flag,
+        st2038_alignment,
+        pending_grain_builder: None,
+        pending_grain_mxl_index: None,
     });
     state.flow = Some(flow);
 

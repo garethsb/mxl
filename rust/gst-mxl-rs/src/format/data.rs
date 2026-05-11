@@ -292,37 +292,64 @@ pub fn st2038_from_smpte291_anc_packet(
     Ok(())
 }
 
+/// Incrementally builds an MXL `video/smpte291` grain from one or more GStreamer
+/// `meta/x-st-2038` buffers (each buffer may contain multiple ST 2038 ANC packets).
+pub struct MxlSmpte291GrainBuilder {
+    smpte291: Vec<u8>,
+    anc_count: u8,
+}
+
+impl MxlSmpte291GrainBuilder {
+    /// Expected octets in the RFC 8331 fixed prefix before the ANC packets:
+    /// `Length` (16 bits), `ANC_Count` (8), `F` (2), `reserved` (22)
+    const HEADER_SIZE: usize = (16 + 8 + 2 + 22) / 8;
+
+    pub fn new() -> Result<Self, AncillaryMapError> {
+        let mut smpte291 = Vec::new();
+        {
+            let mut w = BitWriter::endian(&mut smpte291, BigEndian);
+            w.write_from::<u16>(0u16)?; // Length (updated in `into_padded_grain`)
+            w.write_from::<u8>(0u8)?; // ANC_Count (updated in `into_padded_grain`)
+            w.write::<2, u8>(0u8)?; // F
+            w.write::<22, u32>(0u32)?; // reserved
+            w.flush()?;
+        }
+        debug_assert_eq!(smpte291.len(), Self::HEADER_SIZE);
+        Ok(Self {
+            smpte291,
+            anc_count: 0,
+        })
+    }
+
+    pub fn append_st2038_packets(&mut self, st2038: &[u8]) -> Result<(), AncillaryMapError> {
+        let mut remaining = st2038;
+        while !remaining.is_empty() {
+            if self.anc_count == u8::MAX {
+                return Err(AncillaryMapError::Invalid(
+                    "more than 255 ST 2038 ANC packets in one grain",
+                ));
+            }
+            smpte291_from_st2038_anc_packet(&mut self.smpte291, &mut remaining)?;
+            self.anc_count += 1;
+        }
+        Ok(())
+    }
+
+    pub fn into_padded_grain(mut self) -> Result<Vec<u8>, AncillaryMapError> {
+        let length = u16::try_from(self.smpte291.len() - Self::HEADER_SIZE)
+            .map_err(|_| AncillaryMapError::Invalid("RFC 8331 Length overflow"))?;
+        self.smpte291[0..2].copy_from_slice(&length.to_be_bytes());
+        self.smpte291[2] = self.anc_count;
+        pad_grain(&mut self.smpte291)?;
+        Ok(self.smpte291)
+    }
+}
+
 /// Make an MXL `video/smpte291` data grain from a GStreamer `meta/x-st-2038` buffer.
 pub fn mxl_smpte291_grain_from_gst_st2038(st2038: &[u8]) -> Result<Vec<u8>, AncillaryMapError> {
-    let mut smpte291 = Vec::new();
-    {
-        let mut w = BitWriter::endian(&mut smpte291, BigEndian);
-        w.write_from::<u16>(0u16)?; // Length (updated below)
-        w.write_from::<u8>(0u8)?; // ANC_Count (updated below)
-        w.write::<2, u8>(0u8)?; // F
-        w.write::<22, u32>(0u32)?; // reserved
-        w.flush()?;
-    }
-    let header_len = smpte291.len();
-
-    let mut anc_count: u8 = 0;
-    let mut remaining = st2038;
-    while !remaining.is_empty() {
-        if anc_count == u8::MAX {
-            return Err(AncillaryMapError::Invalid(
-                "more than 255 ST 2038 ANC packets in one buffer",
-            ));
-        }
-        smpte291_from_st2038_anc_packet(&mut smpte291, &mut remaining)?;
-        anc_count += 1;
-    }
-
-    let length = u16::try_from(smpte291.len() - header_len)
-        .map_err(|_| AncillaryMapError::Invalid("RFC 8331 Length overflow"))?;
-    smpte291[0..2].copy_from_slice(&length.to_be_bytes());
-    smpte291[2] = anc_count;
-    pad_grain(&mut smpte291)?;
-    Ok(smpte291)
+    let mut builder = MxlSmpte291GrainBuilder::new()?;
+    builder.append_st2038_packets(st2038)?;
+    builder.into_padded_grain()
 }
 
 /// Make a GStreamer `meta/x-st-2038` buffer from an MXL `video/smpte291` data grain.
@@ -334,6 +361,7 @@ pub fn gst_st2038_from_mxl_smpte291_grain(smpte291: &[u8]) -> Result<Vec<u8>, An
     let _reserved = r.read::<22, u32>()?;
     assert!(r.byte_aligned(), "RFC 8331 header is byte-aligned");
     let header_len = r.into_reader().position() as usize;
+    debug_assert_eq!(header_len, MxlSmpte291GrainBuilder::HEADER_SIZE);
     let mut remaining =
         smpte291
             .get(header_len..header_len + length)
@@ -495,5 +523,57 @@ mod tests {
         let actual = mxl_smpte291_grain_from_gst_st2038(&[]).unwrap();
         assert_eq!(actual.len(), MXL_DATA_FORMAT_GRAIN_SIZE);
         assert!(actual.iter().all(|&b| b == 0));
+    }
+
+    #[test]
+    fn mxl_smpte291_grain_builder_empty_matches_from_gst_st2038() {
+        let from_fn = mxl_smpte291_grain_from_gst_st2038(&[]).unwrap();
+        let from_builder = MxlSmpte291GrainBuilder::new()
+            .unwrap()
+            .into_padded_grain()
+            .unwrap();
+        assert_eq!(from_builder, from_fn);
+    }
+
+    #[test]
+    fn mxl_smpte291_grain_builder_two_appends_matches_single_buffer() {
+        let expected = ST2038_TEST_PACKETS.concat();
+        let one_shot = mxl_smpte291_grain_from_gst_st2038(&expected).unwrap();
+
+        let mut b = MxlSmpte291GrainBuilder::new().unwrap();
+        b.append_st2038_packets(ST2038_TEST_PACKETS[0]).unwrap();
+        b.append_st2038_packets(ST2038_TEST_PACKETS[1]).unwrap();
+        let incremental = b.into_padded_grain().unwrap();
+
+        assert_eq!(incremental, one_shot);
+        let round_trip = gst_st2038_from_mxl_smpte291_grain(&incremental).unwrap();
+        assert_eq!(round_trip, expected);
+    }
+
+    #[test]
+    fn mxl_smpte291_grain_builder_append_two_anc_in_one_slice_then_empty() {
+        let both = ST2038_TEST_PACKETS.concat();
+        let one_shot = mxl_smpte291_grain_from_gst_st2038(&both).unwrap();
+
+        let mut b = MxlSmpte291GrainBuilder::new().unwrap();
+        b.append_st2038_packets(&both).unwrap();
+        b.append_st2038_packets(&[]).unwrap();
+        assert_eq!(b.into_padded_grain().unwrap(), one_shot);
+    }
+
+    #[test]
+    fn mxl_smpte291_grain_builder_rejects_too_many_anc_packets() {
+        let mut b = MxlSmpte291GrainBuilder::new().unwrap();
+        for _ in 0..255 {
+            b.append_st2038_packets(ST2038_TEST_PACKETS[0])
+                .expect("255 packets fit");
+        }
+        match b.append_st2038_packets(ST2038_TEST_PACKETS[0]) {
+            Err(AncillaryMapError::Invalid(msg)) => {
+                assert_eq!(msg, "more than 255 ST 2038 ANC packets in one grain");
+            }
+            Ok(_) => panic!("expected error"),
+            Err(e) => panic!("unexpected error: {e:?}"),
+        }
     }
 }

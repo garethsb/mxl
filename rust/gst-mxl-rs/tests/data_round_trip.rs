@@ -3,14 +3,15 @@
 
 //! GStreamer integration tests for the MXL discrete data flow path.
 //!
-//! Two end-to-end round trips, both with `mxlsink` and `mxlsrc` connected
-//! through a per-test MXL domain under `/dev/shm` torn down on drop:
+//! End-to-end round trips with `mxlsink` and `mxlsrc` connected through a
+//! per-test MXL domain under `/dev/shm` torn down on drop:
 //!
-//! 1. [`st2038_round_trip_via_mxl`]: synthetic ST 2038 ANC packets
-//!    pushed via `appsrc`, asserted byte-for-byte at `appsink`.
-//! 2. [`cea608_round_trip_via_mxl`]: CEA-608 closed captions from
-//!    an SRT file, encoded to ST 2038, sent over MXL, decoded back to
-//!    plain text.
+//! 1. [`st2038_frame_round_trip_via_mxl`]: synthetic ST 2038 ANC packets pushed
+//!    via `appsrc` with `alignment=frame`, asserted byte-for-byte at `appsink`.
+//! 2. [`st2038_packet_round_trip_via_mxl`]: same bytes as (1), but inserts
+//!    `st2038ancdemux` which uses `alignment=packet`.
+//! 3. [`cea608_round_trip_via_mxl`]: CEA-608 closed captions from an SRT
+//!    file, encoded to ST 2038, sent over MXL, decoded back to plain text.
 //!
 //! `TestDomainGuard` mirrors `rust/mxl/tests/basic_tests.rs::TestDomainGuard`.
 
@@ -117,11 +118,11 @@ impl Drop for TestDomainGuard {
 /// consumer receives exact-byte matches that themselves alternate in the
 /// same order once steady state is reached.
 #[test]
-fn st2038_round_trip_via_mxl() {
+fn st2038_frame_round_trip_via_mxl() {
     init();
 
     let flow_id = uuid::Uuid::new_v4().to_string();
-    let domain_guard = TestDomainGuard::new("st2038_round_trip");
+    let domain_guard = TestDomainGuard::new("st2038_frame_round_trip");
     let domain = domain_guard.domain();
 
     // appsrc `format=time` is required because we set per-buffer PTS and
@@ -189,6 +190,111 @@ fn st2038_round_trip_via_mxl() {
     }
 
     // Pull samples and assert each is one of the two known packets.
+    let mut observed: Vec<usize> = Vec::with_capacity(PULL_COUNT);
+    for _ in 0..PULL_COUNT {
+        let sample = appsink
+            .try_pull_sample(gst::ClockTime::from_seconds(2))
+            .expect("appsink produced a sample within 2s");
+
+        let caps = sample.caps().expect("sample caps");
+        let s = caps.structure(0).expect("caps structure");
+        assert_eq!(s.name(), "meta/x-st-2038");
+
+        let buffer = sample.buffer().expect("sample buffer");
+        let map = buffer.map_readable().expect("map readable");
+        let bytes = map.as_slice();
+
+        let idx = ST2038_TEST_PACKETS
+            .iter()
+            .position(|p| *p == bytes)
+            .unwrap_or_else(|| {
+                panic!(
+                    "expected one of the ST 2038 test packets \
+                     (len={}, first 16 bytes={:02x?})",
+                    bytes.len(),
+                    &bytes[..bytes.len().min(16)]
+                )
+            });
+        observed.push(idx);
+    }
+
+    assert!(
+        observed.windows(2).all(|w| w[0] != w[1]),
+        "expected ST 2038 test packets to alternate, got {observed:?}"
+    );
+    assert!(
+        observed.contains(&0) && observed.contains(&1),
+        "expected to observe both ST 2038 test packets, got {observed:?}"
+    );
+
+    producer.set_state(gst::State::Null).expect("producer Null");
+    consumer.set_state(gst::State::Null).expect("consumer Null");
+}
+
+/// Same ST 2038 payload and timing as [`st2038_frame_round_trip_via_mxl`], but the
+/// producer inserts `st2038ancdemux` between `appsrc` and `mxlsink` so caps on
+/// the sink see `meta/x-st-2038, alignment=packet` (demux `src` template).
+///
+/// Requires the `st2038ancdemux` element from the `rsclosedcaption` plugin in
+/// `gst-plugins-rs` (same as [`cea608_round_trip_via_mxl`]).
+#[test]
+fn st2038_packet_round_trip_via_mxl() {
+    init();
+    require_factories(&["st2038ancdemux", "queue", "appsink"]);
+
+    let flow_id = uuid::Uuid::new_v4().to_string();
+    let domain_guard = TestDomainGuard::new("st2038_packet_round_trip");
+    let domain = domain_guard.domain();
+
+    let producer_desc = format!(
+        "appsrc name=src caps=\"meta/x-st-2038,alignment=frame,framerate=30000/1001\" format=time \
+         ! queue \
+         ! st2038ancdemux \
+         ! queue \
+         ! mxlsink flow-id={flow_id} domain={domain}"
+    );
+    let consumer_desc = format!(
+        "mxlsrc data-flow-id={flow_id} domain={domain} \
+         ! queue \
+         ! appsink name=sink caps=\"meta/x-st-2038,alignment=frame,framerate=30000/1001\" sync=false"
+    );
+
+    let producer = gst::parse::launch(&producer_desc)
+        .expect("parse producer")
+        .downcast::<gst::Pipeline>()
+        .expect("producer is Pipeline");
+    let consumer = gst::parse::launch(&consumer_desc)
+        .expect("parse consumer")
+        .downcast::<gst::Pipeline>()
+        .expect("consumer is Pipeline");
+
+    let appsrc = producer
+        .by_name("src")
+        .expect("appsrc")
+        .downcast::<gst_app::AppSrc>()
+        .expect("AppSrc downcast");
+    let appsink = consumer
+        .by_name("sink")
+        .expect("appsink")
+        .downcast::<gst_app::AppSink>()
+        .expect("AppSink downcast");
+
+    producer
+        .set_state(gst::State::Playing)
+        .expect("producer Playing");
+    consumer
+        .set_state(gst::State::Playing)
+        .expect("consumer Playing");
+
+    const GRAIN_PERIOD_NS: u64 = gst::ClockTime::SECOND.nseconds() * 1_001 / 30_000;
+    const PULL_COUNT: usize = 7;
+    const PUSH_COUNT: usize = PULL_COUNT + 2;
+    for i in 0..PUSH_COUNT {
+        let pts = gst::ClockTime::from_nseconds(i as u64 * GRAIN_PERIOD_NS);
+        let bytes = ST2038_TEST_PACKETS[i % ST2038_TEST_PACKETS.len()];
+        appsrc.push_buffer(make_buffer(bytes, pts)).expect("push");
+    }
+
     let mut observed: Vec<usize> = Vec::with_capacity(PULL_COUNT);
     for _ in 0..PULL_COUNT {
         let sample = appsink
