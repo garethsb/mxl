@@ -5,19 +5,11 @@ use std::str::FromStr;
 
 include!(concat!(env!("OUT_DIR"), "/constants.rs"));
 
-#[cfg(not(feature = "mxl-not-built"))]
 pub fn get_mxl_so_path() -> std::path::PathBuf {
-    // The mxl-sys build script ensures that the build directory is in the library path
-    // so we can just return the library name here.
+    // Resolve via LD_LIBRARY_PATH / the system loader (libloading dlopen).
+    // With mxl-not-built, libmxl is built separately and may be installed anywhere
+    // (e.g. a container path under /opt), not only under the compile-time build tree.
     "libmxl.so".into()
-}
-
-#[cfg(feature = "mxl-not-built")]
-pub fn get_mxl_so_path() -> std::path::PathBuf {
-    std::path::PathBuf::from_str(MXL_BUILD_DIR)
-        .expect("build error: 'MXL_BUILD_DIR' is invalid")
-        .join("lib")
-        .join("libmxl.so")
 }
 
 pub fn get_mxl_repo_root() -> std::path::PathBuf {
