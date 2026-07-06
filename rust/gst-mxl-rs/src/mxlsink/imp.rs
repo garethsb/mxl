@@ -96,6 +96,12 @@ impl ObjectImpl for MxlSink {
         }
         self.parent_constructed();
         self.obj().set_sync(true);
+        // Offer the MXL clock so a producer pipeline can run on MXL time; then
+        // every MXL element shares `D = 0` and maps a given PTS to the same
+        // grain index. A foreign clock stays supported via the shared offset
+        // context.
+        self.obj()
+            .set_element_flags(gst::ElementFlags::PROVIDE_CLOCK);
     }
 
     fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
@@ -229,6 +235,11 @@ impl ElementImpl for MxlSink {
         self.parent_change_state(transition)
     }
 
+    fn provide_clock(&self) -> Option<gst::Clock> {
+        let context = self.context.lock().ok()?;
+        context.clock.clone().map(|clock| clock.upcast())
+    }
+
     fn set_clock(&self, clock: Option<&gst::Clock>) -> bool {
         // Re-sample `D` against the newly selected clock.
         crate::clock::ClockOffsetExt::invalidate_clock_offset(self);
@@ -284,6 +295,7 @@ impl BaseSinkImpl for MxlSink {
             )
         })?;
         let instance = init_mxl_instance(&settings)?;
+        context.clock = Some(crate::clock::MxlClock::new(instance.clone()));
         context.state = Some(State {
             instance,
             flow: None,
@@ -332,6 +344,7 @@ impl BaseSinkImpl for MxlSink {
             }
         }
 
+        context.clock = None;
         gst::info!(CAT, imp = self, "Stopped");
         Ok(())
     }

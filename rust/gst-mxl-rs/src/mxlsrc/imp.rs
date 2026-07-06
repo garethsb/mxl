@@ -128,6 +128,8 @@ impl ObjectImpl for MxlSrc {
         let obj = self.obj();
         obj.set_live(true);
         obj.set_format(gst::Format::Time);
+        // We can drive the pipeline on MXL time; offer our clock.
+        obj.set_element_flags(gst::ElementFlags::PROVIDE_CLOCK);
     }
 
     fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
@@ -263,6 +265,11 @@ impl ElementImpl for MxlSrc {
         transition: gst::StateChange,
     ) -> Result<gst::StateChangeSuccess, gst::StateChangeError> {
         self.parent_change_state(transition)
+    }
+
+    fn provide_clock(&self) -> Option<gst::Clock> {
+        let context = self.context.lock().ok()?;
+        context.clock.clone().map(|clock| clock.upcast())
     }
 
     fn set_clock(&self, clock: Option<&gst::Clock>) -> bool {

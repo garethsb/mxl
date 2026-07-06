@@ -12,6 +12,7 @@ use gstreamer as gst;
 use gstreamer_base as gst_base;
 use mxl::{FlowReader, MxlInstance, config::get_mxl_so_path, flowdef::*};
 
+use crate::clock::MxlClock;
 use crate::mxlsrc::{
     imp::*,
     state::{AudioState, DataState, Settings, State, VideoState},
@@ -212,8 +213,9 @@ pub(crate) fn is_flushing(mxlsrc: &MxlSrc) -> bool {
 }
 
 /// The MXL instance, created on first use and cached in `Context` so the
-/// reader and the timestamp conversions all share it. Idempotent and race-safe:
-/// the first caller wins, later callers reuse the cached instance.
+/// clock, the reader, and the timestamp conversions all share it. Also builds
+/// the [`MxlClock`] offered via `provide_clock`. Idempotent and race-safe: the
+/// first caller wins, later callers reuse the cached instance.
 pub(crate) fn ensure_instance(mxlsrc: &MxlSrc) -> Result<MxlInstance, gst::ErrorMessage> {
     if let Some(instance) = mxlsrc
         .context
@@ -240,6 +242,7 @@ pub(crate) fn ensure_instance(mxlsrc: &MxlSrc) -> Result<MxlInstance, gst::Error
         return Err(gst::error_msg!(gst::CoreError::Failed, ["domain not set"]));
     }
     let instance = init_mxl_instance(domain.as_str())?;
+    let clock = MxlClock::new(instance.clone());
 
     let mut context = mxlsrc.context.lock().map_err(|e| {
         gst::error_msg!(
@@ -252,6 +255,7 @@ pub(crate) fn ensure_instance(mxlsrc: &MxlSrc) -> Result<MxlInstance, gst::Error
         return Ok(instance);
     }
     context.instance = Some(instance.clone());
+    context.clock = Some(clock);
     Ok(instance)
 }
 

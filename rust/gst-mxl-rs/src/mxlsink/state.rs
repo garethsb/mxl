@@ -61,6 +61,10 @@ pub(crate) struct DataState {
 #[derive(Default)]
 pub(crate) struct Context {
     pub state: Option<State>,
+    /// Clock offered to the pipeline via `provide_clock`, backed by the MXL
+    /// instance. When it is the selected pipeline clock every MXL element shares
+    /// `D = 0` (see [`crate::clock::clock_offset`]).
+    pub clock: Option<crate::clock::MxlClock>,
     /// Pipeline-wide clock offset `D`, shared with the pipeline's other MXL
     /// elements so two sinks fed the same frame commit it at the same absolute
     /// index (see [`crate::clock::SharedClockOffset`]).

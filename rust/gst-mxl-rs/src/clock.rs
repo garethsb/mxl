@@ -1,36 +1,55 @@
 // SPDX-FileCopyrightText: 2026 Contributors to the Media eXchange Layer project.
 // SPDX-License-Identifier: Apache-2.0
 
-//! The MXL-time ↔ pipeline-clock offset shared by `mxlsrc` (reading) and
-//! `mxlsink` (writing).
+//! A GStreamer clock backed by the MXL media clock, and the MXL-time ↔
+//! pipeline-clock offset shared by `mxlsrc` (reading) and `mxlsink` (writing).
 //!
-//! The MXL elements do **not** provide a pipeline clock. MXL time is
-//! `clock_gettime(CLOCK_TAI)`, a wall clock that can step (NTP, leap seconds,
-//! or a hypervisor time sync), so pacing `GstBaseSink` on it stalls the
-//! pipeline. Instead the pipeline runs on whatever clock it selects (the
-//! default monotonic system clock) and each element tracks the constant offset
-//! `D = mxl_now - pipeline_clock_now`, sampled once and shared between the
-//! pipeline's MXL elements.
+//! `mxlsrc` offers [`MxlClock`] to the pipeline so it can run on MXL time. It
+//! subclasses `GstSystemClock` and overrides only `internal_time()` to return
+//! the MXL time (`MxlInstance::get_time()`, TAI nanoseconds); the inherited wait
+//! machinery keeps working because MXL time advances at real-time rate, so the
+//! relative waits it computes stay correct.
 
 use gst::glib;
 use gst::prelude::*;
+use gst::subclass::prelude::*;
 use gstreamer as gst;
 
 use std::sync::Arc;
 use std::sync::Mutex;
 
+use mxl::MxlInstance;
+
+glib::wrapper! {
+    pub struct MxlClock(ObjectSubclass<imp::MxlClock>)
+        @extends gst::SystemClock, gst::Clock, gst::Object;
+}
+
+impl MxlClock {
+    pub(crate) fn new(instance: MxlInstance) -> Self {
+        let clock: Self = glib::Object::new();
+        *clock.imp().instance.lock().unwrap() = Some(instance);
+        clock
+    }
+}
+
 /// MXL-time → pipeline-clock offset `D = mxl_now - pipeline_clock_now`.
 ///
-/// The constant offset between MXL (TAI) time and the pipeline clock, sampled
-/// once. `None` when the element has no clock yet.
+/// `0` when an [`MxlClock`] is the selected pipeline clock (a type check, not
+/// object identity), so every element driven by an MXL clock shares `D = 0`.
+/// Against a foreign clock it is the constant offset between the MXL clock and
+/// that clock. `None` when the element has no clock yet.
 ///
 /// A reader subtracts `D + base_time` from a grain's absolute MXL timestamp to
 /// get its PTS; a writer adds the same to a buffer's PTS to get the MXL
 /// timestamp it maps to a grain index. Sampling `D` once (and reusing it) is
 /// what keeps two flows mapping the same frame to the same absolute index.
 pub(crate) fn clock_offset(clock: Option<gst::Clock>, mxl_now: u64) -> Option<u64> {
-    let clock = clock?;
-    Some(mxl_now.saturating_sub(clock.time().nseconds()))
+    match clock {
+        Some(clock) if clock.is::<MxlClock>() => Some(0),
+        Some(clock) => Some(mxl_now.saturating_sub(clock.time().nseconds())),
+        None => None,
+    }
 }
 
 /// `GstContext` type shared by every MXL element (source and sink) in a pipeline
@@ -161,6 +180,35 @@ pub(crate) trait ClockOffsetExt {
     fn invalidate_clock_offset(&self) {
         if let Some(cell) = self.cached_clock_offset() {
             cell.invalidate();
+        }
+    }
+}
+
+mod imp {
+    use super::*;
+
+    #[derive(Default)]
+    pub struct MxlClock {
+        pub(super) instance: Mutex<Option<MxlInstance>>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for MxlClock {
+        const NAME: &'static str = "GstRsMxlClock";
+        type Type = super::MxlClock;
+        type ParentType = gst::SystemClock;
+    }
+
+    impl ObjectImpl for MxlClock {}
+    impl GstObjectImpl for MxlClock {}
+    impl SystemClockImpl for MxlClock {}
+
+    impl ClockImpl for MxlClock {
+        fn internal_time(&self) -> gst::ClockTime {
+            match self.instance.lock().unwrap().as_ref() {
+                Some(instance) => gst::ClockTime::from_nseconds(instance.get_time()),
+                None => self.parent_internal_time(),
+            }
         }
     }
 }

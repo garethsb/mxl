@@ -3,7 +3,7 @@
 
 use mxl::{FlowReader, GrainReader, MxlInstance, Rational, SamplesReader};
 
-use crate::clock::SharedClockOffset;
+use crate::clock::{MxlClock, SharedClockOffset};
 
 pub(crate) const DEFAULT_FLOW_ID: &str = "";
 pub(crate) const DEFAULT_DOMAIN: &str = "";
@@ -79,9 +79,11 @@ pub struct DataState {
 
 #[derive(Default)]
 pub struct Context {
-    /// MXL instance, created in `start()` so the reader and the timestamp
-    /// conversions can share it. Cheap to clone (`Arc`-backed).
+    /// MXL instance, created in `start()` so the clock (and later the reader)
+    /// can share it. Cheap to clone (`Arc`-backed).
     pub instance: Option<MxlInstance>,
+    /// Clock offered to the pipeline via `provide_clock`, backed by `instance`.
+    pub clock: Option<MxlClock>,
     /// Pipeline-wide MXL-time → clock offset `D`, shared with the pipeline's
     /// other MXL elements so a given absolute grain index exposes an identical
     /// PTS on every flow — what `st2038combiner` needs to re-pair flows.
