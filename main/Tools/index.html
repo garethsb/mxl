@@ -13,17 +13,18 @@
       
       
       
-        <link rel="prev" href="../Timing/">
+      
+        <link rel="prev" href="../Usage/">
       
       
-        <link rel="next" href="../Usage/">
+        <link rel="next" href="../Addressability/">
       
       
         
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="zensical-0.0.45">
+      <meta name="generator" content="zensical-0.0.73">
     
     
       
@@ -34,14 +35,29 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.fba56155.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
       
       
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--caution:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20class%3D%22lucide%20lucide-octagon-alert%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2016h.01M12%208v4M15.312%202a2%202%200%200%201%201.414.586l4.688%204.688A2%202%200%200%201%2022%208.688v6.624a2%202%200%200%201-.586%201.414l-4.688%204.688a2%202%200%200%201-1.414.586H8.688a2%202%200%200%201-1.414-.586l-4.688-4.688A2%202%200%200%201%202%2015.312V8.688a2%202%200%200%201%20.586-1.414l4.688-4.688A2%202%200%200%201%208.688%202z%22/%3E%3C/svg%3E');--md-admonition-icon--important:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20class%3D%22lucide%20lucide-message-square-warning%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M22%2017a2%202%200%200%201-2%202H6.828a2%202%200%200%200-1.414.586l-2.202%202.202A.71.71%200%200%201%202%2021.286V5a2%202%200%200%201%202-2h16a2%202%200%200%201%202%202zM12%2015h.01M12%207v4%22/%3E%3C/svg%3E');}</style>
+
 
 
     
@@ -57,6 +73,8 @@
         <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
     <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
@@ -74,19 +92,16 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#tools" class="md-skip">
-          Skip to content
-        </a>
-      
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
     </div>
     <div data-md-component="announce">
       
@@ -106,12 +121,13 @@
     <a href="./.." title="MXL" class="md-header__button md-logo" aria-label="MXL" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
 
     </a>
-    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+    <label class="md-header__button md-icon" for="__drawer">
       
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -136,7 +152,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -146,7 +162,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
@@ -163,9 +179,10 @@
     
       
       
-        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+        <label class="md-header__button md-icon" for="__search">
           
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
         </label>
         <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
   <button type="button" class="md-search__button">
@@ -175,6 +192,16 @@
       
     
     <div class="md-header__source">
+      
+        <a href="https://github.com/garethsb/mxl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    garethsb/mxl
+  </div>
+</a>
       
     </div>
   </nav>
@@ -205,11 +232,23 @@
     <a href="./.." title="MXL" class="md-nav__button md-logo" aria-label="MXL" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
 
     </a>
     MXL
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/garethsb/mxl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    garethsb/mxl
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -227,7 +266,7 @@
   <span class="md-ellipsis">
     
   
-  MXL : Media eXchange Layer
+  Home
 
     
   </span>
@@ -243,56 +282,69 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Addressability/" class="md-nav__link">
+  
+    
+    
+      
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
     
   
-  MXL Addressability
+  Using the SDK
 
     
   </span>
   
   
 
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Architecture/" class="md-nav__link">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-  
-  <span class="md-ellipsis">
-    
-  
-  Architecture
+  Using the SDK
 
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
   
   
   
@@ -316,22 +368,23 @@
     </li>
   
 
-    
-      
-      
+                
+              
+                
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="../Configuration/" class="md-nav__link">
+      <a href="../Usage/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  Configuration
+  Usage
 
     
   </span>
@@ -342,61 +395,10 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Fabrics/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Fabrics
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Timing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Timing Model
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
+                
+              
+                
+                  
   
   
     
@@ -472,6 +474,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mxl-video-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        mxl-video-probe
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mxl-data-probe" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -502,10 +515,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="mxl-gst-sink">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mxl-gst-looping-filesrc" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -539,8 +551,25 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#test-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test pattern
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#av-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A/V sync
+      </span>
+    </span>
+  </a>
   
 </li>
         
@@ -550,19 +579,450 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gstreamer-filters" class="md-nav__link">
+  <a href="#gstreamer-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Gstreamer filters
+        GStreamer plugin
       </span>
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="GStreamer plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-to-mxl-gst-testsrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Equivalent to mxl-gst-testsrc
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-to-mxl-gst-sink" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Equivalent to mxl-gst-sink
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-to-mxl-gst-looping-filesrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Equivalent to mxl-gst-looping-filesrc
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Addressability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Addressability
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Architecture
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Timing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Timing Model
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../event-flows.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Event Flows
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Fabrics
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Fabrics
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FabricsGettingStarted/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FabricsDeveloperGuide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Developer Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fabrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Implementation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FabricsBandwidth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Bandwidth
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -575,14 +1035,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../Usage/" class="md-nav__link">
+      <a href="../API%20Reference/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  
+  API Reference
 
     
   </span>
@@ -590,6 +1050,108 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Other
+    <!--
+    The asterisk is a wildcard which collects pages this file does not name
+    explicitly, in filename order. The section is omitted when every page is
+    already listed.
+    -->
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Other
+    <!--
+    The asterisk is a wildcard which collects pages this file does not name
+    explicitly, in filename order. The section is omitted when every page is
+    already listed.
+    -->
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EventFlows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Event Flows
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
     </li>
   
 
@@ -646,6 +1208,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mxl-video-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        mxl-video-probe
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mxl-data-probe" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -676,10 +1249,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="mxl-gst-sink">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mxl-gst-looping-filesrc" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -713,8 +1285,25 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#test-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test pattern
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#av-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A/V sync
+      </span>
+    </span>
+  </a>
   
 </li>
         
@@ -724,13 +1313,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gstreamer-filters" class="md-nav__link">
+  <a href="#gstreamer-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Gstreamer filters
+        GStreamer plugin
       </span>
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="GStreamer plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-to-mxl-gst-testsrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Equivalent to mxl-gst-testsrc
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-to-mxl-gst-sink" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Equivalent to mxl-gst-sink
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-to-mxl-gst-looping-filesrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Equivalent to mxl-gst-looping-filesrc
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -752,18 +1380,81 @@
   
 
 
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="./.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../Building/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Using the SDK
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
               
               <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
                 
                   
+
+  
+  
+
 
 <!-- SPDX-FileCopyrightText: 2025 Contributors to the Media eXchange Layer project. -->
 <!-- SPDX-License-Identifier: CC-BY-4.0 -->
 
 <h1 id="tools">Tools</h1>
 <h2 id="mxl-info">mxl-info</h2>
-<p>Simple tool that uses the MXL sdk to open a flow by ID and prints the flow details.</p>
+<p>Simple tool that uses the MXL SDK to open a flow by ID and prints the flow details.</p>
 <div class="highlight"><pre><span></span><code>./mxl-info<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>ADDRESS...<span class="o">]</span>
+
 
 POSITIONALS:
 <span class="w">  </span>ADDRESS<span class="w"> </span>TEXT<span class="w"> </span>...<span class="w">            </span>MXL<span class="w"> </span>URI
@@ -821,7 +1512,7 @@ CAM2:<span class="w"> </span>mxl:///dev/shm/mxl/?id<span class="o">=</span>53c36
 <span class="w">          </span>Latency<span class="w"> </span><span class="o">(</span>grains<span class="o">)</span>:<span class="w"> </span><span class="m">1</span>
 <span class="w">                    </span>Active:<span class="w"> </span><span class="nb">true</span>
 </code></pre></div>
-<p>Example 2a : Printing details about a specific flow using an MXL URI </p>
+<p>Example 2a : Printing details about a specific flow using an MXL URI</p>
 <div class="highlight"><pre><span></span><code>./mxl-info<span class="w"> </span>mxl:///dev/shm/mxl?id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed
 
 -<span class="w"> </span>Flow<span class="w"> </span><span class="o">[</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="o">]</span>
@@ -845,9 +1536,76 @@ CAM2:<span class="w"> </span>mxl:///dev/shm/mxl/?id<span class="o">=</span>53c36
 <p>Hint : Live monitoring of a flow details (updates every second)</p>
 <div class="highlight"><pre><span></span><code>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>-p<span class="w"> </span>./mxl-info<span class="w"> </span>mxl:///dev/shm/mxl?id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed
 </code></pre></div>
+<h2 id="mxl-video-probe">mxl-video-probe</h2>
+<p><code>mxl-video-probe</code> keeps a video flow reader open and verifies <code>--count</code> grains
+starting after the current head. The default count is 60, and the minimum is 60.
+The default timeout per grain is 1000 ms. A domain and flow id are required.
+They can also be supplied as an MXL URI. The reference file is optional.</p>
+<div class="highlight"><pre><span></span><code>Verify video grains and report delivery rate, latency and jitter
+
+
+mxl-video-probe [OPTIONS] [ADDRESS...]
+
+
+POSITIONALS:
+  ADDRESS TEXT ...            MXL URI
+
+OPTIONS:
+  -h,     --help              Print this help message and exit
+          --version           Display program version information and exit
+  -d,     --domain TEXT:DIR   The MXL domain directory
+  -f,     --flow TEXT         The video flow id to read
+  -c,     --count UINT:UINT in [60 - 18446744073709551615]
+                              Number of video grains to verify, starting after the current head
+  -t,     --timeout-ms UINT:UINT in [1 - 18446744073709]
+                              Timeout per grain read in milliseconds
+          --reference-file TEXT:FILE
+                              Optional raw file containing a repeating sequence of complete frames
+
+MXL URI format:
+mxl://[authority[:port]]/domain[?id=...]
+See: https://github.com/dmf-mxl/mxl/docs/Addressability.md
+</code></pre></div>
+<p>Start the sender before launching the probe. A new video flow starts with head index zero; the probe does not retarget its first read when the sender publishes its first grain.</p>
+<p>The probe reads each complete video grain. It checks the grain index, invalid-grain flag and measured delivery rate. When a reference file is supplied, it also checks full payload bytes and reference sequence order. It fails on a read error, a mismatch, or measured elapsed time outside 1% of the expected duration.</p>
+<p>The reference file contains a repeating sequence of raw frames with the same format and frame size as the flow. Its length must be a nonzero multiple of the first valid grain's payload size. The probe aligns to the sequence at any starting position, then checks its order and wraps at the end of the file. Repeated frames are allowed; all possible starting positions are retained until the received content distinguishes them. A grain that matches a reference frame outside the expected sequence counts as an order error and starts a new alignment. A grain matching no reference frame counts as a byte error. Invalid grains and byte errors reset alignment.</p>
+<p>Static references work without additional options. Repeated copies of a static frame use a single comparison per grain. Identical frames cannot reveal stale or duplicated content published under a new grain index.</p>
+<p>Delivery timing uses <code>std::chrono::steady_clock</code> timestamps taken after the first and last successful <code>mxlFlowReaderGetGrain</code> calls. The expected duration is the number of frame intervals divided by the flow's configured grain rate.</p>
+<p>Verification also reports <code>latency_min_ms</code>, <code>latency_mean_ms</code>, <code>latency_max_ms</code>, and <code>jitter_ms</code> over all successfully read grains. Each latency sample is the MXL TAI time just after the read returns minus the nominal timestamp of the requested grain index, calculated using the configured grain rate.
+Negative values mean the grain is dated in the future. Jitter is the maximum latency minus the minimum latency over the run. These statistics do not set additional pass or fail thresholds.</p>
+<p>Latency includes reader scheduling delays, payload verification time between reads, and any backlog. MXL rounds origin timestamps to the nearest grain index, so reconstructing an origin timestamp can introduce up to half a frame interval of error. This does not measure end-to-end presentation latency. Clock adjustments during sampling can affect the results.</p>
+<p>For a v210 <code>blink</code> flow, generate the reference using the same dimensions and rate as the sender. A GStreamer pipeline can publish the flow without a custom sender application:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span>-q<span class="w"> </span>videotestsrc<span class="w"> </span>num-buffers<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>blink<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">60</span>/1<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>/tmp/blink-1080p60.v210
+
+gst-launch-1.0<span class="w"> </span>-q<span class="w"> </span>videotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>blink<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">60</span>/1<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm/mxl<span class="w"> </span>flow-id<span class="o">=</span>FLOW_ID<span class="w"> </span><span class="nv">sync</span><span class="o">=</span><span class="nb">false</span>
+
+mxl-video-probe<span class="w"> </span>-d<span class="w"> </span>/dev/shm/mxl<span class="w"> </span>-f<span class="w"> </span>FLOW_ID<span class="w"> </span>--count<span class="w"> </span><span class="m">10800</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference-file<span class="w"> </span>/tmp/blink-1080p60.v210
+</code></pre></div>
+<p>For a static white flow, use a reference file generated from the same pattern:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span>-q<span class="w"> </span>videotestsrc<span class="w"> </span>num-buffers<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>white<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">60</span>/1<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>/tmp/white-1080p60.v210
+
+gst-launch-1.0<span class="w"> </span>-q<span class="w"> </span>videotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>white<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">60</span>/1<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm/mxl<span class="w"> </span>flow-id<span class="o">=</span>FLOW_ID<span class="w"> </span><span class="nv">sync</span><span class="o">=</span><span class="nb">false</span>
+
+mxl-video-probe<span class="w"> </span>-d<span class="w"> </span>/dev/shm/mxl<span class="w"> </span>-f<span class="w"> </span>FLOW_ID<span class="w"> </span>--count<span class="w"> </span><span class="m">10800</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference-file<span class="w"> </span>/tmp/white-1080p60.v210
+</code></pre></div>
+<p>GStreamer generates each blink frame; static patterns such as white reuse a cached image with a copy per frame. Sender capacity may differ from a sender that wraps prebuilt frame buffers. The stock <code>mxl-gst-testsrc</code> adds changing text and clock overlays, so its output does not match the fixed reference file.</p>
 <h2 id="mxl-data-probe">mxl-data-probe</h2>
-<p>A tool that opens an MXL ancillary Data flow (<code>media_type: video/smpte291</code>), reads one or more grains starting at the current head index, and prints the RFC-8331 ANC elements found in each grain.</p>
+<p>A tool that opens an MXL ancillary Data flow (<code>media_type: video/smpte291</code>) or an Event flow (<code>urn:x-nmos:format:event</code>).
+For Data flows, it reads grains starting at the current head index and prints their RFC-8331 ANC elements.
+For Event flows, it reads in queue order starting at the oldest retained event and prints the timestamp, flags, registry, data item type, payload size, fragment offset, completion flag, and payload bytes in hexadecimal. Events do not require a <code>media_type</code>.</p>
+<p><code>--count</code> counts individual stored entries, including fragments. Fragments are displayed separately without reassembly or continuity validation. The printed event number is a local read counter starting at zero. A read error (including a timeout or ring overrun) stops the probe with a nonzero exit status.</p>
 <div class="highlight"><pre><span></span><code>./mxl-data-probe<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>ADDRESS...<span class="o">]</span>
+
 
 POSITIONALS:
 <span class="w">  </span>ADDRESS<span class="w"> </span>TEXT<span class="w"> </span>...<span class="w">            </span>MXL<span class="w"> </span>URI
@@ -857,9 +1615,10 @@ OPTIONS:
 <span class="w">          </span>--version<span class="w">           </span>Display<span class="w"> </span>program<span class="w"> </span>version<span class="w"> </span>information<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
 <span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT:DIR<span class="w">   </span>The<span class="w"> </span>MXL<span class="w"> </span>domain<span class="w"> </span>directory
 <span class="w">  </span>-f,<span class="w">     </span>--flow<span class="w"> </span>TEXT<span class="w">         </span>The<span class="w"> </span>flow<span class="w"> </span>id<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span>
-<span class="w">  </span>-c,<span class="w">     </span>--count<span class="w"> </span>UINT<span class="w"> </span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">    </span>Number<span class="w"> </span>of<span class="w"> </span>grains<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>head<span class="w"> </span>index
-<span class="w">  </span>-t,<span class="w">     </span>--timeout-ms<span class="w"> </span>UINT<span class="w"> </span><span class="o">[</span><span class="m">1000</span><span class="o">]</span>
-<span class="w">                              </span>Timeout<span class="w"> </span>per<span class="w"> </span>grain<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>milliseconds
+<span class="w">  </span>-c,<span class="w">     </span>--count<span class="w"> </span>UINT:UINT<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">[</span><span class="m">1</span><span class="w"> </span>-<span class="w"> </span><span class="m">18446744073709551615</span><span class="o">]</span><span class="w"> </span>
+<span class="w">                              </span>Number<span class="w"> </span>of<span class="w"> </span>grains<span class="w"> </span><span class="o">(</span>from<span class="w"> </span>the<span class="w"> </span>head<span class="o">)</span><span class="w"> </span>or<span class="w"> </span>event<span class="w"> </span>entries<span class="w"> </span><span class="o">(</span>from<span class="w"> </span>the
+<span class="w">                              </span>oldest<span class="w"> </span>retained<span class="o">)</span><span class="w"> </span>to<span class="w"> </span><span class="nb">read</span>
+<span class="w">  </span>-t,<span class="w">     </span>--timeout-ms<span class="w"> </span>UINT<span class="w">   </span>Timeout<span class="w"> </span>per<span class="w"> </span>grain<span class="w"> </span>or<span class="w"> </span>event<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>milliseconds
 
 MXL<span class="w"> </span>URI<span class="w"> </span>format:
 mxl://<span class="o">[</span>authority<span class="o">[</span>:port<span class="o">]]</span>/domain<span class="o">[</span>?id<span class="o">=</span>...<span class="o">]</span>
@@ -871,103 +1630,120 @@ See:<span class="w"> </span>https://github.com/dmf-mxl/mxl/docs/Addressability.m
 <p>Example using an MXL URI:</p>
 <div class="highlight"><pre><span></span><code>./mxl-data-probe<span class="w"> </span>mxl:///dev/shm/mxl?id<span class="o">=</span>db3bd465-2772-484f-8fac-830b0471258b<span class="w"> </span>--count<span class="w"> </span><span class="m">3</span>
 </code></pre></div>
+<p>Example inspecting two event entries (such as a two-fragment event):</p>
+<div class="highlight"><pre><span></span><code>./mxl-data-probe<span class="w"> </span>-d<span class="w"> </span>/dev/shm/mxl<span class="w"> </span>-f<span class="w"> </span>cabbc00d-3860-4438-bc48-8ebdfe67305e<span class="w"> </span>--count<span class="w"> </span><span class="m">2</span>
+</code></pre></div>
 <h2 id="mxl-gst-testsrc">mxl-gst-testsrc</h2>
-<p>A binary that uses the gstreamer 'videotestsrc' and 'audiotestsrc' elements to produce video grains and/or audio samples which will be pushed to a MXL Flow. The flow is configured from a NMOS Flow json file. Here's an example of such file :</p>
-<p>&emsp; <strong>Note</strong> Don't forget to provide valid description, label and grouphint tag.</p>
-<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;___CHANGE ME___ Long description of the video flow&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5fbec3b1-1b0f-417d-9059-8b94a47197ed&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;urn:x-nmos:tag:grouphint/v1.0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;___CHANGE ME FOR A NAME UNIQUE TO YOUR MEDIA FUNCTION INSTANCE___:Video&quot;</span>
+<p>A binary that uses the GStreamer <code>videotestsrc</code> and <code>audiotestsrc</code> elements to produce video grains and/or audio samples which will be pushed to an MXL Flow.</p>
+<p>The GStreamer pipeline ends at an <code>appsink</code>. This program pulls each sample from that sink and writes it with the MXL SDK. The flow is configured from a NMOS Flow JSON file.</p>
+<p>Here's an example of such file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don't forget to provide valid description, label, and group-hint tag.</p>
+</div>
+<p><code>video_flow.json</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"___CHANGE ME___ Long description of the video flow"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5fbec3b1-1b0f-417d-9059-8b94a47197ed"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"urn:x-nmos:tag:grouphint/v1.0"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"___CHANGE ME FOR A NAME UNIQUE TO YOUR MEDIA FUNCTION INSTANCE___:Video"</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;urn:x-nmos:format:video&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;___CHANGE ME___ Short description of the video flow&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;parents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;media_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;video/v210&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;grain_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;numerator&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;denominator&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1001</span>
+<span class="w">  </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:x-nmos:format:video"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"___CHANGE ME___ Short description of the video flow"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"media_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"video/v210"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"grain_rate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1001</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;frame_width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;frame_height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;interlace_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;progressive&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;colorspace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BT709&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"frame_width"</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"frame_height"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"interlace_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"progressive"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"colorspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BT709"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Y&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;bit_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"bit_depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cb&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;bit_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cb"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"bit_depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cr&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;bit_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cr"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">960</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"bit_depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-Below is an example of an <strong>augmented NMOS Flow JSON</strong> for audio.<br />
-&emsp; <strong>Note 1:</strong> The <em>channel_count</em> property is a mandatory MXL requirement (not found in standard NMOS definition). To adjust the number of audio channels, simply update the <em>channel_count</em> value.</p>
-<p>&emsp; <strong>Note 2:</strong> Don't forget to provide valid description, label and grouphint tag.</p>
+<p>Below is an example of an <strong>augmented NMOS Flow JSON</strong> for audio.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol>
+<li>The <code>channel_count</code> property is a mandatory MXL requirement (not found in the NMOS audio Flow schema).
+   To adjust the number of audio channels, simply update the <code>channel_count</code> value.</li>
+<li>Don't forget to provide valid description, label and group-hint tag.</li>
+</ol>
+</div>
+<p><code>audio_flow.json</code></p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;___CHANGE ME___ Long description of the audio flow&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;urn:x-nmos:format:audio&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;urn:x-nmos:tag:grouphint/v1.0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;___CHANGE ME FOR A NAME UNIQUE TO YOUR MEDIA FUNCTION INSTANCE___:Audio #1&quot;</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"___CHANGE ME___ Long description of the audio flow"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"urn:x-nmos:format:audio"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"urn:x-nmos:tag:grouphint/v1.0"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"___CHANGE ME FOR A NAME UNIQUE TO YOUR MEDIA FUNCTION INSTANCE___:Audio #1"</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;___CHANGE ME___ Short description of the audio flow&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1441812152:154331951&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b3bb5be7-9fe9-4324-a5bb-4c70e1084449&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;media_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;audio/float32&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sample_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;numerator&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">48000</span>
+<span class="w">  </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"___CHANGE ME___ Short description of the audio flow"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1441812152:154331951"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b3bb5be7-9fe9-4324-a5bb-4c70e1084449"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"media_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"audio/float32"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"sample_rate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">48000</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;channel_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;bit_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;parents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;source_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2aa143ac-0ab7-4d75-bc32-5c00c13d186f&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;device_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;169feb2c-3fae-42a5-ae2e-f6f8cbce29cf&quot;</span>
+<span class="w">  </span><span class="nt">"channel_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"bit_depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"source_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2aa143ac-0ab7-4d75-bc32-5c00c13d186f"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"169feb2c-3fae-42a5-ae2e-f6f8cbce29cf"</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>./mxl-gst-testsrc<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 
+
 OPTIONS:
 <span class="w">  </span>-h,<span class="w">     </span>--help<span class="w">              </span>Print<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>-v,<span class="w">     </span>--video-config-file<span class="w"> </span>TEXT
+<span class="w">  </span>-v,<span class="w">     </span>--video-config-file<span class="w"> </span>TEXT<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>json<span class="w"> </span>file<span class="w"> </span>which<span class="w"> </span>contains<span class="w"> </span>the<span class="w"> </span>Video<span class="w"> </span>NMOS<span class="w"> </span>Flow<span class="w"> </span>configuration.
-<span class="w">          </span>--video-options-file<span class="w"> </span>TEXT
+<span class="w">          </span>--video-options-file<span class="w"> </span>TEXT<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>json<span class="w"> </span>file<span class="w"> </span>which<span class="w"> </span>contains<span class="w"> </span>the<span class="w"> </span>Video<span class="w"> </span>Flow<span class="w"> </span>options.
-<span class="w">  </span>-a,<span class="w">     </span>--audio-config-file<span class="w"> </span>TEXT
+<span class="w">  </span>-a,<span class="w">     </span>--audio-config-file<span class="w"> </span>TEXT<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>json<span class="w"> </span>file<span class="w"> </span>which<span class="w"> </span>contains<span class="w"> </span>the<span class="w"> </span>Audio<span class="w"> </span>NMOS<span class="w"> </span>Flow<span class="w"> </span>configuration
-<span class="w">          </span>--audio-options-file<span class="w"> </span>TEXT
+<span class="w">          </span>--audio-options-file<span class="w"> </span>TEXT<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>json<span class="w"> </span>file<span class="w"> </span>which<span class="w"> </span>contains<span class="w"> </span>the<span class="w"> </span>Audio<span class="w"> </span>Flow<span class="w"> </span>options.
-<span class="w">          </span>--audio-offset<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span>
+<span class="w">          </span>--audio-offset<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="w">  </span>
 <span class="w">                              </span>Audio<span class="w"> </span>sample<span class="w"> </span>offset<span class="w"> </span><span class="k">in</span><span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>samples.<span class="w"> </span>Positive<span class="w"> </span>value<span class="w"> </span>means
 <span class="w">                              </span>you<span class="w"> </span>are<span class="w"> </span>adding<span class="w"> </span>a<span class="w"> </span>delay<span class="w"> </span><span class="o">(</span>commit<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>past<span class="o">)</span>.
-<span class="w">          </span>--video-offset<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span>
+<span class="w">          </span>--video-offset<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="w">  </span>
 <span class="w">                              </span>Video<span class="w"> </span>frame<span class="w"> </span>offset<span class="w"> </span><span class="k">in</span><span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>frames.<span class="w"> </span>Positive<span class="w"> </span>value<span class="w"> </span>means<span class="w"> </span>you
 <span class="w">                              </span>are<span class="w"> </span>adding<span class="w"> </span>a<span class="w"> </span>delay<span class="w"> </span><span class="o">(</span>commit<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>past<span class="o">)</span>.
-<span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT:DIR<span class="w"> </span>REQUIRED
+<span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT:DIR<span class="w"> </span>REQUIRED<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>MXL<span class="w"> </span>domain<span class="w"> </span>directory
-<span class="w">  </span>-p,<span class="w">     </span>--pattern<span class="w"> </span>TEXT<span class="w"> </span><span class="o">[</span>smpte<span class="o">]</span>
+<span class="w">  </span>-p,<span class="w">     </span>--pattern<span class="w"> </span>TEXT<span class="w"> </span><span class="o">[</span>smpte<span class="o">]</span><span class="w">  </span>
 <span class="w">                              </span>Test<span class="w"> </span>pattern<span class="w"> </span>to<span class="w"> </span>use.<span class="w"> </span>For<span class="w"> </span>available<span class="w"> </span>options<span class="w"> </span>see
 <span class="w">                              </span>https://gstreamer.freedesktop.org/documentation/videotestsrc/index.html?gi-language<span class="o">=</span>c#GstVideoTestSrcPattern
-<span class="w">  </span>-t,<span class="w">     </span>--overlay-text<span class="w"> </span>TEXT<span class="w"> </span><span class="o">[</span>EBU<span class="w"> </span>DMF<span class="w"> </span>MXL<span class="o">]</span>
+<span class="w">  </span>-t,<span class="w">     </span>--overlay-text<span class="w"> </span>TEXT<span class="w"> </span><span class="o">[</span>EBU<span class="w"> </span>DMF<span class="w"> </span>MXL<span class="o">]</span><span class="w">  </span>
 <span class="w">                              </span>Change<span class="w"> </span>the<span class="w"> </span>text<span class="w"> </span>overlay<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="nb">source</span>
-<span class="w">  </span>-g,<span class="w">     </span>--group-hint<span class="w"> </span>TEXT<span class="w"> </span><span class="o">[</span>mxl-gst-testsrc-group<span class="o">]</span>
-<span class="w">                              </span>The<span class="w"> </span>group-hint<span class="w"> </span>value<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>flow<span class="w"> </span>json<span class="w"> </span>definition<span class="w">                               </span>
+<span class="w">  </span>-g,<span class="w">     </span>--group-hint<span class="w"> </span>TEXT<span class="w"> </span><span class="o">[</span>mxl-gst-testsrc-group<span class="o">]</span><span class="w">  </span>
+<span class="w">                              </span>The<span class="w"> </span>group-hint<span class="w"> </span>value<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>flow<span class="w"> </span>json<span class="w"> </span>definition
 </code></pre></div>
 <p>Example to run with video only:</p>
 <div class="highlight"><pre><span></span><code>./mxl-gst-testsrc<span class="w"> </span><span class="se">\</span>
@@ -986,17 +1762,17 @@ OPTIONS:
 <span class="w">  </span>-a<span class="w"> </span>lib/tests/data/audio_flow.json
 </code></pre></div>
 <p>By default, <code>videotestsrc</code> produces one slice and one sample at a time because it relies on the<code>maxSyncBatchSizeHint</code> field in the flow options to determine batch size, which defaults to 1 when not configured. To modify this behavior, create separate flow option files for video and audio.</p>
-<p>video_options.json</p>
-<div class="highlight"><pre><span></span><code>{
-  &quot;maxCommitBatchSizeHint&quot;: 60,
-  &quot;maxSyncBatchSizeHint&quot;: 60
-}
+<p><code>video_options.json</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"maxCommitBatchSizeHint"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxSyncBatchSizeHint"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>audio_options.json</p>
-<div class="highlight"><pre><span></span><code>{
-  &quot;maxCommitBatchSizeHint&quot;: 512,
-  &quot;maxSyncBatchSizeHint&quot;: 512
-}
+<p><code>audio_options.json</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"maxCommitBatchSizeHint"</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"maxSyncBatchSizeHint"</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>You can run the full example with:</p>
 <div class="highlight"><pre><span></span><code>./mxl-gst-testsrc<span class="w"> </span><span class="se">\</span>
@@ -1006,30 +1782,36 @@ OPTIONS:
 <span class="w">  </span>-a<span class="w"> </span>lib/tests/data/audio_flow.json<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--audio-options-file<span class="w"> </span>audio_options.json
 </code></pre></div>
+<p>The same test pattern and tones are written to MXL flows using the <code>mxlsink</code> element in <a href="#equivalent-to-mxl-gst-testsrc">Equivalent to mxl-gst-testsrc</a>.</p>
 <h2 id="mxl-gst-sink">mxl-gst-sink</h2>
-<p>A binary that reads from a MXL Flow and display the flow using the gstreamer element 'autovideosink'.</p>
+<p>A binary that reads from an MXL Flow and displays the flow using the GStreamer element <code>autovideosink</code>. This program reads grains with the MXL SDK and pushes each buffer into an <code>appsrc</code>.</p>
 <div class="highlight"><pre><span></span><code>./mxl-gst-sink<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 
 
 OPTIONS:
 <span class="w">  </span>-h,<span class="w">     </span>--help<span class="w">              </span>Print<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>-v,<span class="w">     </span>--video-flow-id<span class="w"> </span>TEXT
-<span class="w">                              </span>The<span class="w"> </span>video<span class="w"> </span>flow<span class="w"> </span>ID
-<span class="w">  </span>-a,<span class="w">     </span>--audio-flow-id<span class="w"> </span>TEXT
+<span class="w">  </span>-v,<span class="w">     </span>--video-flow-id<span class="w"> </span>TEXT<span class="w"> </span>...<span class="w"> </span>
+<span class="w">                              </span>The<span class="w"> </span>video<span class="w"> </span>flow<span class="w"> </span>ID<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="o">(</span>supports<span class="w"> </span>multiple<span class="w"> </span><span class="k">for</span><span class="w"> </span>multiviewer<span class="w"> </span>mode<span class="o">)</span>
+<span class="w">  </span>-a,<span class="w">     </span>--audio-flow-id<span class="w"> </span>TEXT<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>audio<span class="w"> </span>flow<span class="w"> </span>ID
-<span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT:DIR<span class="w"> </span>REQUIRED
+<span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT:DIR<span class="w"> </span>REQUIRED<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>MXL<span class="w"> </span>domain<span class="w"> </span>directory.
-<span class="w">  </span>-l,<span class="w">     </span>--listen-channels<span class="w"> </span>UINT<span class="w"> </span><span class="o">[[</span><span class="m">0</span>,1<span class="o">]]</span><span class="w">  </span>...
+<span class="w">  </span>-l,<span class="w">     </span>--listen-channels<span class="w"> </span>UINT<span class="w"> </span><span class="o">[[</span><span class="m">0</span>,1<span class="o">]]</span><span class="w">  </span>...<span class="w"> </span>
 <span class="w">                              </span>Audio<span class="w"> </span>channels<span class="w"> </span>to<span class="w"> </span>listen.
-<span class="w">          </span>--read-delay<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">40000000</span><span class="o">]</span>
+<span class="w">          </span>--read-delay<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">40000000</span><span class="o">]</span><span class="w">  </span>
 <span class="w">                              </span>How<span class="w"> </span>far<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>past/future<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>nanoseconds<span class="o">)</span>.<span class="w"> </span>A<span class="w"> </span>positive
 <span class="w">                              </span>values<span class="w"> </span>means<span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>delaying<span class="w"> </span>the<span class="w"> </span>read.
-<span class="w">          </span>--playback-delay<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span>
+<span class="w">          </span>--playback-delay<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="w">  </span>
 <span class="w">                              </span>The<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>nanoseconds,<span class="w"> </span>by<span class="w"> </span>which<span class="w"> </span>to<span class="w"> </span>delay<span class="w"> </span>playback<span class="w"> </span>of<span class="w"> </span>audio
 <span class="w">                              </span>and/or<span class="w"> </span>video.
 <span class="w">          </span>--av-delay<span class="w"> </span>INT<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="w">  </span>The<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>nanoseconds,<span class="w"> </span>by<span class="w"> </span>which<span class="w"> </span>to<span class="w"> </span>delay<span class="w"> </span>the<span class="w"> </span>audio<span class="w"> </span>relative<span class="w"> </span>to
 <span class="w">                              </span>video.<span class="w"> </span>A<span class="w"> </span>positive<span class="w"> </span>value<span class="w"> </span>means<span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>delaying<span class="w"> </span>audio,<span class="w"> </span>a<span class="w"> </span>negative
 <span class="w">                              </span>value<span class="w"> </span>means<span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>delaying<span class="w"> </span>video.
+<span class="w">          </span>--pts-offset<span class="w"> </span>UINT<span class="w">   </span>The<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>nanoseconds<span class="w"> </span>by<span class="w"> </span>which<span class="w"> </span>to<span class="w"> </span>delay<span class="w"> </span>playback<span class="w"> </span>of<span class="w"> </span>grains
+<span class="w">                              </span>relative<span class="w"> </span>to<span class="w"> </span>their<span class="w"> </span>MXL-based<span class="w"> </span>timestamps.<span class="w"> </span>This<span class="w"> </span>sets<span class="w"> </span>a<span class="w"> </span>fixed<span class="w"> </span>value
+<span class="w">                              </span>that<span class="w"> </span>will<span class="w"> </span>not<span class="w"> </span>change<span class="w"> </span>during<span class="w"> </span>runtime.<span class="w"> </span>If<span class="w"> </span>the<span class="w"> </span>parameter<span class="w"> </span>is<span class="w"> </span>not
+<span class="w">                              </span>provided,<span class="w"> </span>the<span class="w"> </span>PTS<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>automatically<span class="w"> </span>increased<span class="w"> </span>so<span class="w"> </span>that<span class="w"> </span>no<span class="w"> </span>PTS
+<span class="w">                              </span>value<span class="w"> </span>supplied<span class="w"> </span>to<span class="w"> </span>GStreamer<span class="w"> </span>is<span class="w"> </span>ever<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>past.
 </code></pre></div>
 <p>Example to run with video only:</p>
 <div class="highlight"><pre><span></span><code>./mxl-gst-sink<span class="w"> </span><span class="se">\</span>
@@ -1047,11 +1829,12 @@ OPTIONS:
 <span class="w">  </span>-v<span class="w"> </span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-a<span class="w"> </span>b3bb5be7-9fe9-4324-a5bb-4c70e1084449
 </code></pre></div>
-<h3 id="mxl-gst-looping-filesrc">mxl-gst-looping-filesrc</h3>
-<p>A utility that continuously loops through MPEG-TS files to generate video grains to push into MXL flows.</p>
+<p>The same flows are played with the <code>mxlsrc</code> element in <a href="#equivalent-to-mxl-gst-sink">Equivalent to mxl-gst-sink</a>.</p>
+<h2 id="mxl-gst-looping-filesrc">mxl-gst-looping-filesrc</h2>
+<p>A utility that continuously loops through MPEG-TS files to generate video grains to push into MXL flows. The GStreamer pipeline ends at an <code>appsink</code> for video and an <code>appsink</code> for audio. This program pulls each sample (buffer) and writes it with the MXL SDK.</p>
 <h4 id="prerequisites">Prerequisites</h4>
-<p>This application requires the <code>looping_filesrc</code> GStreamer plugin located in <code>utils/gst-looping-filesrc/</code>.  After building the plugin successfully, set the GST_PLUGIN_PATH environment variable to enable GStreamer to locate and load the plugin.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">GST_PLUGIN_PATH</span><span class="o">=</span><span class="s2">&quot;./build/Linux-GCC-Release/utils/gst-looping-filesrc:</span><span class="si">${</span><span class="nv">GST_PLUGIN_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+<p>This application requires the <code>looping_filesrc</code> GStreamer plugin located in <code>utils/gst-looping-filesrc/</code>.  After building the plugin successfully, set the <code>GST_PLUGIN_PATH</code> environment variable to enable GStreamer to locate and load the plugin.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">GST_PLUGIN_PATH</span><span class="o">=</span><span class="s2">"./build/Linux-GCC-Release/utils/gst-looping-filesrc:</span><span class="si">${</span><span class="nv">GST_PLUGIN_PATH</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
 <p><strong>Verify Installation:</strong></p>
 <div class="highlight"><pre><span></span><code>gst-inspect-1.0<span class="w"> </span>looping_filesrc
@@ -1062,13 +1845,142 @@ OPTIONS:
 
 OPTIONS:
 <span class="w">  </span>-h,<span class="w">     </span>--help<span class="w">              </span>Print<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT<span class="w"> </span>REQUIRED
+<span class="w">  </span>-d,<span class="w">     </span>--domain<span class="w"> </span>TEXT<span class="w"> </span>REQUIRED<span class="w"> </span>
 <span class="w">                              </span>The<span class="w"> </span>MXL<span class="w"> </span>domain<span class="w"> </span>directory
-<span class="w">  </span>-i,<span class="w">     </span>--input<span class="w"> </span>TEXT:FILE<span class="w"> </span>REQUIRED
+<span class="w">  </span>-i,<span class="w">     </span>--input<span class="w"> </span>TEXT:FILE<span class="w"> </span>REQUIRED<span class="w"> </span>
 <span class="w">                              </span>MPEGTS<span class="w"> </span>media<span class="w"> </span>file<span class="w"> </span>location
+<span class="w">          </span>--video-id<span class="w"> </span>TEXT:UUID<span class="w"> </span>
+<span class="w">                              </span>The<span class="w"> </span>MXL<span class="w"> </span>video<span class="w"> </span>flow<span class="w"> </span>id
+<span class="w">          </span>--audio-id<span class="w"> </span>TEXT:UUID<span class="w"> </span>
+<span class="w">                              </span>The<span class="w"> </span>MXL<span class="w"> </span>audio<span class="w"> </span>flow<span class="w"> </span>id
 </code></pre></div>
-<h2 id="gstreamer-filters">Gstreamer filters</h2>
-<p>MXL Source and Sink filters for GStreamer are available <a href="https://github.com/dmf-mxl/mxl/blob/main/rust/gst-mxl-rs/README.md">here</a>.</p>
+<p><code>looping_filesrc</code> reads an MPEG-TS file and effectively rewinds it to the start every time it reaches the end. It cannot guarantee seamless playback, because the MPEG-TS timestamps do not meet at the rewind.</p>
+<p>The pipelines below each create one file. Each file is 300 frames at 30000/1001, which is 10.01 seconds: ten closed GOPs of 30 frames, and 1001 Opus frames of 10 ms (480480 samples at 48 kHz). The picture in the file is H.265 main profile, 8-bit 4:2:0. Playback converts it to <code>v210</code> at 1920×1080, 30000/1001, matching <code>lib/tests/data/v210_flow.json</code>. The audio decodes to 48 kHz stereo <code>F32LE</code>, matching <code>lib/tests/data/audio_flow.json</code>.</p>
+<p>The same files are written to MXL flows using the <code>mxlsink</code> element in <a href="#equivalent-to-mxl-gst-looping-filesrc">Equivalent to mxl-gst-looping-filesrc</a>.</p>
+<h4 id="test-pattern">Test pattern</h4>
+<p>The same bars, label, and tones as <code>mxl-gst-testsrc</code>. A 100 Hz tone is on the first channel and a 200 Hz tone is on the second. <code>timeoverlay</code> draws each buffer's timestamp on the bars, so the rewind is visible.</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span>-e<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">false</span><span class="w"> </span>num-buffers<span class="o">=</span><span class="m">300</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>smpte<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>I420,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">30000</span>/1001,colorimetry<span class="o">=</span>bt709<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>textoverlay<span class="w"> </span><span class="nv">text</span><span class="o">=</span><span class="s2">"EBU DMF MXL"</span><span class="w"> </span>font-desc<span class="o">=</span><span class="s2">"Sans, 36"</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>timeoverlay<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>x265enc<span class="w"> </span>key-int-max<span class="o">=</span><span class="m">30</span><span class="w"> </span>speed-preset<span class="o">=</span>ultrafast<span class="w"> </span><span class="nv">tune</span><span class="o">=</span>zerolatency<span class="w"> </span><span class="nv">bitrate</span><span class="o">=</span><span class="m">8000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>option-string<span class="o">=</span><span class="s2">"keyint=30:min-keyint=30:scenecut=0:open-gop=0:bframes=0"</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>h265parse<span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>mux.<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">false</span><span class="w"> </span>num-buffers<span class="o">=</span><span class="m">1001</span><span class="w"> </span><span class="nv">samplesperbuffer</span><span class="o">=</span><span class="m">480</span><span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">100</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'audio/x-raw,format=S16LE,rate=48000,channels=1,channel-mask=(bitmask)0x1'</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>m.sink_0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">false</span><span class="w"> </span>num-buffers<span class="o">=</span><span class="m">1001</span><span class="w"> </span><span class="nv">samplesperbuffer</span><span class="o">=</span><span class="m">480</span><span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">200</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'audio/x-raw,format=S16LE,rate=48000,channels=1,channel-mask=(bitmask)0x2'</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>m.sink_1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>interleave<span class="w"> </span><span class="nv">name</span><span class="o">=</span>m<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audioconvert<span class="w"> </span>!<span class="w"> </span>audio/x-raw,format<span class="o">=</span>S16LE,rate<span class="o">=</span><span class="m">48000</span>,channels<span class="o">=</span><span class="m">2</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>opusenc<span class="w"> </span>frame-size<span class="o">=</span><span class="m">10</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>mux.<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mpegtsmux<span class="w"> </span><span class="nv">name</span><span class="o">=</span>mux<span class="w"> </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>mxl-gst-testsrc.ts
+</code></pre></div>
+<h4 id="av-sync">A/V sync</h4>
+<p><code>avsyncvideotestsrc</code> and <code>avsyncaudiotestsrc</code> come from <code>libgstavsynctest.so</code>, in the same <code>GST_PLUGIN_PATH</code> directory as <code>libgstmxl.so</code>. The default pip interval is 1 second on both. The bar is at the centre of the frame on each pip, and the tone is centred on that same instant. Set <code>pip-interval</code> to the same value on each source if you change it. The file stores the sweeping bar and the tone pip. It does not store the CEA-708 caption or the frame-index ancillary.</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span>-e<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>avsyncvideotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">false</span><span class="w"> </span>num-buffers<span class="o">=</span><span class="m">300</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">30000</span>/1001<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoconvert<span class="w"> </span>!<span class="w"> </span>video/x-raw,format<span class="o">=</span>I420<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>x265enc<span class="w"> </span>key-int-max<span class="o">=</span><span class="m">30</span><span class="w"> </span>speed-preset<span class="o">=</span>ultrafast<span class="w"> </span><span class="nv">tune</span><span class="o">=</span>zerolatency<span class="w"> </span><span class="nv">bitrate</span><span class="o">=</span><span class="m">8000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>option-string<span class="o">=</span><span class="s2">"keyint=30:min-keyint=30:scenecut=0:open-gop=0:bframes=0"</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>h265parse<span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>mux.<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>avsyncaudiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">false</span><span class="w"> </span>num-buffers<span class="o">=</span><span class="m">1001</span><span class="w"> </span>samples-per-buffer<span class="o">=</span><span class="m">480</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audio/x-raw,format<span class="o">=</span>F32LE,rate<span class="o">=</span><span class="m">48000</span>,channels<span class="o">=</span><span class="m">2</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audioconvert<span class="w"> </span>!<span class="w"> </span>audio/x-raw,format<span class="o">=</span>S16LE,rate<span class="o">=</span><span class="m">48000</span>,channels<span class="o">=</span><span class="m">2</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>opusenc<span class="w"> </span>frame-size<span class="o">=</span><span class="m">10</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>mux.<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mpegtsmux<span class="w"> </span><span class="nv">name</span><span class="o">=</span>mux<span class="w"> </span>!<span class="w"> </span>filesink<span class="w"> </span><span class="nv">location</span><span class="o">=</span>avsynctest.ts
+</code></pre></div>
+<h2 id="gstreamer-plugin">GStreamer plugin</h2>
+<p>The <code>mxl</code> plugin (<code>libgstmxl.so</code>) provides two elements, <code>mxlsink</code> and <code>mxlsrc</code>. <code>mxlsink</code> writes GStreamer buffers into an MXL Flow. <code>mxlsrc</code> reads an MXL Flow into GStreamer buffers. Each element calls the MXL SDK itself, so the example pipelines below can be run with <code>gst-launch-1.0</code>. They provide the functionality of <code>mxl-gst-testsrc</code>, <code>mxl-gst-sink</code>, and <code>mxl-gst-looping-filesrc</code> with no application code.</p>
+<p>The GStreamer plugin is documented <a href="https://github.com/garethsb/mxl/blob/main/rust/gst-mxl-rs/README.md">here</a>. Set <code>GST_PLUGIN_PATH</code> and <code>LD_LIBRARY_PATH</code> as that README describes before running the examples below. The <code>looping_filesrc</code> example also needs that plugin on <code>GST_PLUGIN_PATH</code>, as described under <a href="#mxl-gst-looping-filesrc">mxl-gst-looping-filesrc</a>.</p>
+<h3 id="equivalent-to-mxl-gst-testsrc">Equivalent to mxl-gst-testsrc</h3>
+<p>Video only:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span>do-timestamp<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>smpte<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>textoverlay<span class="w"> </span><span class="nv">text</span><span class="o">=</span><span class="s2">"EBU DMF MXL"</span><span class="w"> </span>font-desc<span class="o">=</span><span class="s2">"Sans, 36"</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>clockoverlay<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">30000</span>/1001<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span>flow-id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm
+</code></pre></div>
+<p>Audio only:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span>do-timestamp<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">100</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'audio/x-raw,channels=1,channel-mask=(bitmask)0x1'</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>m.sink_0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span>do-timestamp<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">200</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'audio/x-raw,channels=1,channel-mask=(bitmask)0x2'</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>m.sink_1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>interleave<span class="w"> </span><span class="nv">name</span><span class="o">=</span>m<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audioconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audio/x-raw,format<span class="o">=</span>F32LE,rate<span class="o">=</span><span class="m">48000</span>,channels<span class="o">=</span><span class="m">2</span>,layout<span class="o">=</span>interleaved<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span>flow-id<span class="o">=</span>b3bb5be7-9fe9-4324-a5bb-4c70e1084449<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm
+</code></pre></div>
+<p>Video and audio:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span>do-timestamp<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">pattern</span><span class="o">=</span>smpte<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>textoverlay<span class="w"> </span><span class="nv">text</span><span class="o">=</span><span class="s2">"EBU DMF MXL"</span><span class="w"> </span>font-desc<span class="o">=</span><span class="s2">"Sans, 36"</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>clockoverlay<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,width<span class="o">=</span><span class="m">1920</span>,height<span class="o">=</span><span class="m">1080</span>,framerate<span class="o">=</span><span class="m">30000</span>/1001<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span>flow-id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span>do-timestamp<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">100</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'audio/x-raw,channels=1,channel-mask=(bitmask)0x1'</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>m.sink_0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audiotestsrc<span class="w"> </span>is-live<span class="o">=</span><span class="nb">true</span><span class="w"> </span>do-timestamp<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">200</span><span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'audio/x-raw,channels=1,channel-mask=(bitmask)0x2'</span><span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>m.sink_1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>interleave<span class="w"> </span><span class="nv">name</span><span class="o">=</span>m<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audioconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audio/x-raw,format<span class="o">=</span>F32LE,rate<span class="o">=</span><span class="m">48000</span>,channels<span class="o">=</span><span class="m">2</span>,layout<span class="o">=</span>interleaved<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span>flow-id<span class="o">=</span>b3bb5be7-9fe9-4324-a5bb-4c70e1084449<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm
+</code></pre></div>
+<h3 id="equivalent-to-mxl-gst-sink">Equivalent to mxl-gst-sink</h3>
+<p>Video only:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsrc<span class="w"> </span>video-flow-id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoscale<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>autovideosink
+</code></pre></div>
+<p>Audio only:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsrc<span class="w"> </span>audio-flow-id<span class="o">=</span>b3bb5be7-9fe9-4324-a5bb-4c70e1084449<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audioconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>autoaudiosink
+</code></pre></div>
+<p>Video and audio:</p>
+<div class="highlight"><pre><span></span><code>gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsrc<span class="w"> </span>video-flow-id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>videoscale<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>autovideosink<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsrc<span class="w"> </span>audio-flow-id<span class="o">=</span>b3bb5be7-9fe9-4324-a5bb-4c70e1084449<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audioconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>autoaudiosink
+</code></pre></div>
+<h3 id="equivalent-to-mxl-gst-looping-filesrc">Equivalent to mxl-gst-looping-filesrc</h3>
+<p>The MPEG-TS files are made under <a href="#mxl-gst-looping-filesrc">mxl-gst-looping-filesrc</a>. <code>decodebin</code> uses <code>nvh265dec</code> when GStreamer's NVDEC H.265 decoder is available, and a software H.265 decoder otherwise.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">MEDIA_FILE</span><span class="o">=</span>mxl-gst-testsrc.ts
+<span class="c1"># DeepStream's nvv4l2decoder outputs memory:NVMM, which videoconvert cannot accept.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GST_PLUGIN_FEATURE_RANK</span><span class="o">=</span>nvv4l2decoder:NONE
+
+gst-launch-1.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>looping_filesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span><span class="s2">"</span><span class="nv">$MEDIA_FILE</span><span class="s2">"</span><span class="w"> </span>!<span class="w"> </span>decodebin<span class="w"> </span><span class="nv">name</span><span class="o">=</span>dec<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span>videorate<span class="w"> </span>!<span class="w"> </span>videoconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>video/x-raw,format<span class="o">=</span>v210,colorimetry<span class="o">=</span>bt709<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span>flow-id<span class="o">=</span>5fbec3b1-1b0f-417d-9059-8b94a47197ed<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dec.<span class="w"> </span>!<span class="w"> </span>queue<span class="w"> </span>!<span class="w"> </span>audioconvert<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audio/x-raw,format<span class="o">=</span>F32LE,rate<span class="o">=</span><span class="m">48000</span>,layout<span class="o">=</span>interleaved<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>queue<span class="w"> </span>!<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mxlsink<span class="w"> </span>flow-id<span class="o">=</span>b3bb5be7-9fe9-4324-a5bb-4c70e1084449<span class="w"> </span><span class="nv">domain</span><span class="o">=</span>/dev/shm
+</code></pre></div>
 
 
 
@@ -1108,7 +2020,7 @@ OPTIONS:
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Timing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Timing Model">
+          <a href="../Usage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Usage">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
@@ -1118,20 +2030,20 @@ OPTIONS:
                 Previous
               </span>
               <div class="md-ellipsis">
-                Timing Model
+                Usage
               </div>
             </div>
           </a>
         
         
           
-          <a href="../Usage/" class="md-footer__link md-footer__link--next" aria-label="Next: ">
+          <a href="../Addressability/" class="md-footer__link md-footer__link--next" aria-label="Next: Addressability">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                
+                Addressability
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1165,7 +2077,7 @@ OPTIONS:
 </footer>
       
     </div>
-    <div class="md-dialog" data-md-component="dialog">
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
@@ -1173,10 +2085,14 @@ OPTIONS:
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.expand","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"provider":"mike"}}</script>
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.expand","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"provider":"mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6e5f0216.min.js"></script>
+      <script src="../assets/javascripts/bundle.77dd0ce9.min.js"></script>
       
         <script src="../javascripts/mermaid.js"></script>
       
