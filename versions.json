@@ -2,6 +2,11 @@
   {
     "version": "main",
     "title": "main",
+    "aliases": []
+  },
+  {
+    "version": "docs-v210-range",
+    "title": "docs-v210-range",
     "aliases": [
       "latest"
     ]
